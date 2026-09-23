@@ -79,7 +79,7 @@ class HomePage extends StatelessWidget {
                 crossAxisCount: 2,
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
-                mainAxisExtent: 180,
+                childAspectRatio: 0.8,
                 children: const [
                   FeatureCard(icon: Icons.route, title: 'Veiligste route', text: 'Verlichte straten en drukke zones.'),
                   FeatureCard(icon: Icons.smart_toy, title: 'AI-bot call', text: 'Praat onderweg met een digitale partner.'),
