@@ -79,6 +79,7 @@ class HomePage extends StatelessWidget {
                 crossAxisCount: 2,
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
+                mainAxisExtent: 180,
                 children: const [
                   FeatureCard(icon: Icons.route, title: 'Veiligste route', text: 'Verlichte straten en drukke zones.'),
                   FeatureCard(icon: Icons.smart_toy, title: 'AI-bot call', text: 'Praat onderweg met een digitale partner.'),
@@ -110,10 +111,22 @@ class FeatureCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Icon(icon, size: 42, color: Theme.of(context).colorScheme.primary),
-            const SizedBox(height: 14),
-            Text(title, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            Text(text, style: TextStyle(color: Colors.grey.shade700)),
+            const SizedBox(height: 10),
+            Text(
+              title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 6),
+            Expanded(
+              child: Text(
+                text,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(color: Colors.grey.shade700),
+              ),
+            ),
           ],
         ),
       ),
@@ -252,7 +265,7 @@ class _CheckInPageState extends State<CheckInPage> {
     timer = Timer(delay.isNegative ? const Duration(seconds: 1) : delay, () {
       if (!mounted) return;
       setState(() => status = 'Geen reactie binnen 5 minuten: noodmelding verzonden.');
-      showDialog<void>(context: context, builder: (_) => AlertDialog(title: const Text('Ben je veilig thuis?'), content: const Text('Je locatie en check-in informatie zijn gedeeld met je vertrouwde contactpersonen.'), actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('Oké'))]));
+      showDialog<void>(context: context, builder: (_) => AlertDialog(title: const Text('Ben je veilig thuis?'), content: const Text('Je locatie en check-in informatie zijn gedeeld met je vertrouwde contactpersonen.')));
     });
   }
 
@@ -296,7 +309,7 @@ class EmergencyPage extends StatelessWidget {
   const EmergencyPage({super.key});
 
   void trigger(BuildContext context, String source) {
-    showDialog<void>(context: context, builder: (_) => AlertDialog(title: const Text('Noodsignaal verzonden'), content: Text('Alarm via $source geactiveerd. Je locatie is gedeeld met je vertrouwde contacten.'), actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('Oké'))]));
+    showDialog<void>(context: context, builder: (_) => AlertDialog(title: const Text('Noodsignaal verzonden'), content: Text('Alarm via $source geactiveerd. Je locatie is gedeeld met je vertrouwde contactpersonen.')));
   }
 
   @override
@@ -310,9 +323,9 @@ class EmergencyPage extends StatelessWidget {
           const SizedBox(height: 8),
           const Text('Met één druk op de knop wordt je locatie gedeeld met je vertrouwde mensen.'),
           const SizedBox(height: 24),
-          SizedBox(width: double.infinity, child: ElevatedButton.icon(onPressed: () => trigger(context, 'de armband'), icon: const Icon(Icons.watch), label: const Text('Armband alarm'), style: ElevatedButton.styleFrom(backgroundColor: Colors.red, foregroundColor: Colors.white, padding: const EdgeInsets.symmetric(vertical: 18)))),
+          SizedBox(width: double.infinity, child: ElevatedButton.icon(onPressed: () => trigger(context, 'de armband'), icon: const Icon(Icons.watch), label: const Text('Armband alarm'))),
           const SizedBox(height: 14),
-          SizedBox(width: double.infinity, child: ElevatedButton.icon(onPressed: () => trigger(context, 'het telefoonhoesje'), icon: const Icon(Icons.vibration), label: const Text('Telefoonhoesje alarm'), style: ElevatedButton.styleFrom(backgroundColor: Colors.orange, foregroundColor: Colors.white, padding: const EdgeInsets.symmetric(vertical: 18)))),
+          SizedBox(width: double.infinity, child: ElevatedButton.icon(onPressed: () => trigger(context, 'het telefoonhoesje'), icon: const Icon(Icons.vibration), label: const Text('Telefoonhoesje alarm'))),
           const SizedBox(height: 30),
           const Text('Vertrouwde contactpersonen', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
